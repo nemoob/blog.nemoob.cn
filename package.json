@@ -10,10 +10,10 @@
   "dependencies": {
     "date-fns": "^4.1.0",
     "js-yaml": "^4.1.0",
-    "next": "^13.5.0",
+    "next": "^14.0.0",
     "nextra": "^2.13.4",
     "nextra-theme-blog": "^2.13.0",
-    "nextra-theme-docs": "^4.4.0",
+    "nextra-theme-docs": "^2.13.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
