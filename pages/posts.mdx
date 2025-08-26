@@ -1,0 +1,182 @@
+---
+title: 所有文章
+date: 2024-01-26 00:00:00
+description: 查看所有博客文章
+author: 博主
+---
+
+import { getPagesUnderRoute } from 'nextra/context'
+import Link from 'next/link'
+import { useState } from 'react'
+
+export const getStaticProps = () => {
+  return {
+    props: {
+      posts: getPagesUnderRoute('/posts')
+        .map((page) => ({
+          ...page,
+          date: page.frontMatter?.date || page.meta?.date
+        }))
+        .filter(page => page.date && page.route !== '/posts')
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+    }
+  }
+}
+
+export function PostList({ posts }) {
+  const [currentPage, setCurrentPage] = useState(1)
+  const postsPerPage = 10
+  const totalPages = Math.ceil(posts.length / postsPerPage)
+  
+  const startIndex = (currentPage - 1) * postsPerPage
+  const currentPosts = posts.slice(startIndex, startIndex + postsPerPage)
+  
+  return (
+    <div>
+      <div style={{ marginBottom: '2rem' }}>
+        {currentPosts.map((post, index) => (
+          <article key={post.route} style={{
+            padding: '1.5rem',
+            border: '1px solid #e5e7eb',
+            borderRadius: '8px',
+            background: '#fafafa',
+            marginBottom: '1rem',
+            transition: 'all 0.2s ease'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+              <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: '600' }}>
+                <Link href={post.route} style={{ textDecoration: 'none', color: '#1f2937' }}>
+                  {post.meta?.title || post.frontMatter?.title || post.name}
+                </Link>
+              </h3>
+              <span style={{ 
+                fontSize: '0.875rem', 
+                color: '#6b7280',
+                backgroundColor: '#f3f4f6',
+                padding: '0.25rem 0.5rem',
+                borderRadius: '4px'
+              }}>
+                #{startIndex + index + 1}
+              </span>
+            </div>
+            
+            <p style={{ 
+              margin: '0 0 1rem 0', 
+              color: '#6b7280', 
+              fontSize: '0.875rem',
+              lineHeight: '1.5'
+            }}>
+              {post.frontMatter?.description || '暂无描述'}
+            </p>
+            
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'center',
+              fontSize: '0.75rem',
+              color: '#9ca3af'
+            }}>
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                {post.date && (
+                  <span>📅 {new Date(post.date).toISOString().split('T')[0]}</span>
+                )}
+                {post.frontMatter?.author && (
+                  <span>👤 {post.frontMatter.author}</span>
+                )}
+              </div>
+              
+              {post.frontMatter?.tag && (
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  {post.frontMatter.tag.split(',').slice(0, 2).map((tag, i) => (
+                    <span key={i} style={{
+                      backgroundColor: '#dbeafe',
+                      color: '#1e40af',
+                      padding: '0.125rem 0.5rem',
+                      borderRadius: '12px',
+                      fontSize: '0.7rem'
+                    }}>
+                      {tag.trim()}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+      
+      {totalPages > 1 && (
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center',
+          gap: '0.5rem',
+          marginTop: '2rem',
+          padding: '1rem'
+        }}>
+          <button
+            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+            disabled={currentPage === 1}
+            style={{
+              padding: '0.5rem 1rem',
+              border: '1px solid #d1d5db',
+              borderRadius: '6px',
+              background: currentPage === 1 ? '#f9fafb' : '#ffffff',
+              color: currentPage === 1 ? '#9ca3af' : '#374151',
+              cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            上一页
+          </button>
+          
+          <div style={{ display: 'flex', gap: '0.25rem' }}>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <button
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                style={{
+                  padding: '0.5rem 0.75rem',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '6px',
+                  background: currentPage === page ? '#3b82f6' : '#ffffff',
+                  color: currentPage === page ? '#ffffff' : '#374151',
+                  cursor: 'pointer',
+                  fontWeight: currentPage === page ? '600' : '400'
+                }}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+          
+          <button
+            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            disabled={currentPage === totalPages}
+            style={{
+              padding: '0.5rem 1rem',
+              border: '1px solid #d1d5db',
+              borderRadius: '6px',
+              background: currentPage === totalPages ? '#f9fafb' : '#ffffff',
+              color: currentPage === totalPages ? '#9ca3af' : '#374151',
+              cursor: currentPage === totalPages ? 'not-allowed' : 'pointer'
+            }}
+          >
+            下一页
+          </button>
+        </div>
+      )}
+      
+      <div style={{ textAlign: 'center', marginTop: '3rem', padding: '2rem', background: '#f8fafc', borderRadius: '8px' }}>
+        <span style={{ color: '#6b7280' }}>
+          📝 共 {posts.length} 篇文章 | 持续更新中...
+        </span>
+      </div>
+    </div>
+  )
+}
+
+# 📝 文章
+
+这里是所有博客文章的完整列表，支持分页浏览。
+
+<PostList posts={props.posts} />

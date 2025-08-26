@@ -1,0 +1,88 @@
+---
+title: 一篇博客文章
+date: 2024-01-26 10:30:00
+description: 这是我的第一篇博客文章，介绍了我的技术背景和这个博客的目标。
+author: 杨杨杨大侠
+---
+
+# 欢迎来到杨杨杨大侠的技术博客
+
+大家好！我是杨杨杨大侠（MasterY），一名拥有10年以上经验的Java程序员。很高兴在这里与大家分享我的技术经验和开源项目。
+
+## 关于我
+
+我专注于互联网开发已经8年多了，主要技术栈包括：
+
+- **Java**：我的主要编程语言，有着深厚的基础
+- **Spring**：Spring Boot、Spring Cloud等生态系统
+- **Redis**：缓存和数据存储解决方案
+- **开源项目**：热衷于开源，目前维护多个项目
+
+## 我的开源项目
+
+### Atlas Log - Spring Boot 日志框架
+
+[Atlas Log](https://github.com/nemoob/atlas-log) 是我开发的一个轻量级、高性能的日志框架，专为 Spring Boot 应用设计。
+
+**核心特性：**
+- 🎯 注解驱动 - 使用 @Log 注解即可开启日志记录
+- 🔍 SpEL 表达式 - 支持动态日志消息和条件判断
+- 🛡️ 敏感数据脱敏 - 自动识别并脱敏敏感信息
+- 🚀 高性能 - 基于 Spring AOP，性能开销极小
+
+```java
+@Service
+public class UserService {
+    
+    @Log("查询用户信息: 用户ID=#{args[0]}")
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId);
+    }
+}
+```
+
+### Simple Flow - 流程编排框架
+
+[Simple Flow](https://github.com/nemoob/simpleflow) 是一个轻量级、易用的流程编排框架，专为简化复杂业务流程而设计。
+
+**核心特性：**
+- 🚀 轻量级：零依赖核心，可独立运行或集成Spring Boot
+- 📝 多种定义方式：支持注解、YAML配置、编程式API
+- 🔀 丰富的执行模式：串行、并行、条件分支、循环执行
+
+```java
+@Component
+public class UserService {
+    
+    @SimpleFlow("user-registration")
+    public void registerUser() {
+        validateUser();
+        saveUser();
+        sendWelcomeEmail();
+    }
+}
+```
+
+## 博客目标
+
+在这个博客中，我将分享：
+
+- **技术经验**：10年+ Java开发的实战经验
+- **开源项目**：我的开源项目设计思路和实现细节
+- **最佳实践**：Spring、Redis等技术的最佳实践
+- **架构设计**：互联网应用的架构设计经验
+
+## 联系我
+
+- **GitHub**: [https://github.com/nemoob](https://github.com/nemoob)
+- **网名**: 杨杨杨大侠
+- **英文名**: MasterY / Master3Y
+
+希望我的分享能对大家有所帮助！如果你对我的开源项目感兴趣，欢迎 Star 和贡献代码。让我们一起在技术的道路上不断前进！
+
+
+**优势对比：**
+- ✅ **零侵入**：业务代码完全无感知
+- ✅ **统一规范**：所有日志格式保持一致
+- ✅ **灵活配置**：通过注解灵活控制日志行为
+- ✅ **易于维护**：日志逻辑集中管理

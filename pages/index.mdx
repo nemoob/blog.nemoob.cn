@@ -1,0 +1,135 @@
+---
+type: page
+title: Forge笔记
+date: 2024-01-26
+description: 记录在熔炉里打磨的思考
+tag: blog,tech,前端
+author: 博主
+---
+
+import { getPagesUnderRoute } from 'nextra/context'
+import Link from 'next/link'
+
+export const getStaticProps = () => {
+  return {
+    props: {
+      posts: getPagesUnderRoute('/posts')
+        .map((page) => ({
+          ...page,
+          date: page.frontMatter?.date || page.meta?.date
+        }))
+        .filter(page => page.date && page.route !== '/posts')
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 5)
+    }
+  }
+}
+
+
+
+# 🚀 欢迎来到Forge笔记
+
+记录在熔炉里打磨的思考。
+
+## 📚 最新文章 (共 {props.posts.length} 篇精选)
+
+<div style={{ marginBottom: '2rem' }}>
+{props.posts.map((post, index) => (
+  <article key={post.route} style={{
+    padding: '1.5rem',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    background: '#fafafa',
+    marginBottom: '1rem',
+    transition: 'all 0.2s ease'
+  }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: '600' }}>
+        <Link href={post.route} style={{ textDecoration: 'none', color: '#1f2937' }}>
+          {post.meta?.title || post.frontMatter?.title || post.name}
+        </Link>
+      </h3>
+      <span style={{ 
+        fontSize: '0.875rem', 
+        color: '#6b7280',
+        backgroundColor: '#f3f4f6',
+        padding: '0.25rem 0.5rem',
+        borderRadius: '4px'
+      }}>
+        #{index + 1}
+      </span>
+    </div>
+    
+    <p style={{ 
+      margin: '0 0 1rem 0', 
+      color: '#6b7280', 
+      fontSize: '0.875rem',
+      lineHeight: '1.5'
+    }}>
+      {post.frontMatter?.description || '暂无描述'}
+    </p>
+    
+    <div style={{ 
+      display: 'flex', 
+      justifyContent: 'space-between', 
+      alignItems: 'center',
+      fontSize: '0.75rem',
+      color: '#9ca3af'
+    }}>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        {post.date && (
+          <span>📅 {new Date(post.date).toISOString().split('T')[0]}</span>
+        )}
+        {post.frontMatter?.author && (
+          <span>👤 {post.frontMatter.author}</span>
+        )}
+      </div>
+      
+      {post.frontMatter?.tag && (
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {post.frontMatter.tag.split(',').slice(0, 2).map((tag, i) => (
+            <span key={i} style={{
+              backgroundColor: '#dbeafe',
+              color: '#1e40af',
+              padding: '0.125rem 0.5rem',
+              borderRadius: '12px',
+              fontSize: '0.7rem'
+            }}>
+              {tag.trim()}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </article>
+))}
+
+<div style={{ textAlign: 'center', marginTop: '2rem', padding: '1rem', background: '#f0f9ff', borderRadius: '8px', border: '1px solid #bae6fd' }}>
+  <span style={{ color: '#0369a1', fontSize: '0.875rem' }}>
+    📝 还有更多精彩文章，请查看 <Link href="/posts" style={{ color: '#0369a1', fontWeight: '600' }}>所有文章</Link>
+  </span>
+</div>
+</div>
+
+---
+
+<div style={{ textAlign: 'center', marginTop: '3rem', padding: '2rem', background: '#f8fafc', borderRadius: '8px' }}>
+  <h2 style={{ margin: '0 0 1rem 0', color: '#374151' }}>👨‍💻 关于我</h2>
+  <div style={{ margin: 0, color: '#6b7280', lineHeight: '1.6' }}>
+    我是杨杨杨大侠（MasterY），一名拥有10年以上经验的Java程序员。
+    专注于互联网开发8年+，热衷于开源项目，主要使用Java、Spring、Redis等技术栈。
+    在这里分享我的编程经验、技术思考和开源项目。
+  </div>
+  <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+    <span style={{ fontSize: '0.875rem', backgroundColor: '#f97316', color: '#ffffff', padding: '0.25rem 0.75rem', borderRadius: '16px' }}>Java</span>
+    <span style={{ fontSize: '0.875rem', backgroundColor: '#22c55e', color: '#ffffff', padding: '0.25rem 0.75rem', borderRadius: '16px' }}>Spring</span>
+    <span style={{ fontSize: '0.875rem', backgroundColor: '#dc2626', color: '#ffffff', padding: '0.25rem 0.75rem', borderRadius: '16px' }}>Redis</span>
+    <span style={{ fontSize: '0.875rem', backgroundColor: '#3b82f6', color: '#ffffff', padding: '0.25rem 0.75rem', borderRadius: '16px' }}>开源</span>
+  </div>
+</div>
+
+---
+
+<div style={{ textAlign: 'center', color: '#6b7280', fontSize: '0.875rem' }}>
+  💡 感谢您的访问，希望这些文章对您有所帮助！
+</div>

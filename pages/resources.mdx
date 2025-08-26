@@ -1,0 +1,89 @@
+---
+title: 资料分享
+date: 2024-01-26 00:00:00
+description: 分享实用的开发工具和学习资源
+author: 杨杨杨大侠
+---
+
+import Link from 'next/link'
+import { toolsData } from '../data/tools.mdx'
+
+export const ToolCard = ({ tool }) => (
+  <div style={{
+    padding: '1rem',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    background: '#ffffff',
+    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+    transition: 'all 0.2s ease',
+    cursor: 'pointer'
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.transform = 'translateY(-2px)';
+    e.currentTarget.style.boxShadow = '0 4px 12px 0 rgba(0, 0, 0, 0.15)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.transform = 'translateY(0)';
+    e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1)';
+  }}
+  onClick={() => window.open(tool.url, '_blank')}>
+    <h3 style={{ margin: 0, fontSize: '0.9rem', fontWeight: '600', color: '#1f2937', marginBottom: '0.5rem' }}>
+      {tool.name}
+    </h3>
+    <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>
+      {tool.desc}
+    </div>
+  </div>
+);
+
+# 📚 资料分享
+
+<div style={{
+  padding: '1.5rem',
+  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  borderRadius: '12px',
+  color: '#ffffff',
+  marginBottom: '3rem'
+}}>
+  <div style={{ fontSize: '0.95rem', lineHeight: '1.6' }}>
+    这里分享一些实用的开发工具和在线资源，提高开发效率。
+  </div>
+</div>
+
+## 🔧 开发工具
+
+<div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+  gap: '1rem',
+  marginBottom: '2rem'
+}}>
+  {toolsData.developmentTools.map((tool, index) => (
+    <ToolCard key={index} tool={tool} />
+  ))}
+</div>
+
+## 🌐 在线工具
+
+<div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+  gap: '1rem',
+  marginBottom: '2rem'
+}}>
+  {toolsData.onlineTools.map((tool, index) => (
+    <ToolCard key={index} tool={tool} />
+  ))}
+</div>
+
+## 📚 学习资源
+
+<div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+  gap: '1rem'
+}}>
+  {toolsData.learningResources.map((tool, index) => (
+    <ToolCard key={index} tool={tool} />
+  ))}
+</div>
