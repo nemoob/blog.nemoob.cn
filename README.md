@@ -220,13 +220,6 @@ npm run start
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
-## 📞 联系方式
-
-- **作者**: 杨杨杨大侠
-- **邮箱**: [your-email@example.com](mailto:your-email@example.com)
-- **GitHub**: [@nemoob](https://github.com/nemoob)
-- **博客**: [blog.nemoob.cn](https://blog.nemoob.cn)
-
 ---
 
 ⭐ 如果这个项目对您有帮助，请给个 Star 支持一下！
