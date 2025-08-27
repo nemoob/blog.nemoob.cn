@@ -9,6 +9,9 @@ yarn-error.log*
 out/
 build/
 
+# Auto-generated files
+pages/posts/_meta.json
+
 # Environment variables
 .env
 .env.local

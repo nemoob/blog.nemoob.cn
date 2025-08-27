@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "node scripts/generate-meta.js && npx next dev",
+    "build": "node scripts/generate-meta.js && npx next build",
+    "start": "npx next start",
+    "generate-meta": "node scripts/generate-meta.js"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
