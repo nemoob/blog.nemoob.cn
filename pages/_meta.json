@@ -1,5 +1,7 @@
 {
-  "index": "Introduction",
-  "posts": "Blog Posts",
-  "about": "About"
+  "index": "首页",
+  "posts": "技术文章",
+  "projects": "开源项目",
+  "resources": "资料分享",
+  "about": "关于"
 }

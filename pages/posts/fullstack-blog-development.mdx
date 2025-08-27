@@ -65,35 +65,43 @@ graph TD
 ### 整体架构图
 
 ```mermaid
-architecture-beta
-    group api(cloud)[API Layer]
-    group app(cloud)[Application Layer]
-    group data(database)[Data Layer]
-    group deploy(cloud)[Deployment Layer]
-
-    service github(internet)[GitHub Repository] in api
-    service vercel(internet)[Vercel Platform] in api
-    service cdn(internet)[Global CDN] in api
-
-    service nextjs(server)[Next.js App] in app
-    service nextra(server)[Nextra Engine] in app
-    service components(server)[React Components] in app
-
-    service mdx(database)[MDX Files] in data
-    service assets(database)[Static Assets] in data
-    service config(database)[Configuration] in data
-
-    service actions(cloud)[GitHub Actions] in deploy
-    service build(cloud)[Build Process] in deploy
-    service edge(cloud)[Edge Functions] in deploy
-
-    github:R --> L:nextjs
-    nextjs:R --> L:nextra
-    nextra:R --> L:mdx
-    nextjs:T --> B:vercel
-    vercel:R --> L:cdn
-    actions:R --> L:build
-    build:R --> L:vercel
+graph TB
+    subgraph "API Layer"
+        A[GitHub Repository]
+        B[Vercel Platform]
+        C[Global CDN]
+    end
+    
+    subgraph "Application Layer"
+        D[Next.js App]
+        E[Nextra Engine]
+        F[React Components]
+    end
+    
+    subgraph "Data Layer"
+        G[MDX Files]
+        H[Static Assets]
+        I[Configuration]
+    end
+    
+    subgraph "Deployment Layer"
+        J[GitHub Actions]
+        K[Build Process]
+        L[Edge Functions]
+    end
+    
+    A --> D
+    D --> E
+    E --> G
+    D --> B
+    B --> C
+    J --> K
+    K --> B
+    
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style D fill:#f3e5f5
 ```
 
 ### 数据流示意图
@@ -359,7 +367,7 @@ const config = {
   footer: {
     text: (
       <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-        <span>© 2024 杨杨杨大侠. All rights reserved.</span>
+        <span>© 2025 杨杨杨大侠. All rights reserved.</span>
         <div style={{ display: 'flex', gap: '16px' }}>
           <a href="/privacy" style={{ color: 'inherit' }}>隐私政策</a>
           <a href="/terms" style={{ color: 'inherit' }}>使用条款</a>
