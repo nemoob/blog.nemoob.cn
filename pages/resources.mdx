@@ -63,6 +63,19 @@ export const ToolCard = ({ tool }) => (
   ))}
 </div>
 
+## 🍎 Mac 软件
+
+<div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
+  gap: '1rem',
+  marginBottom: '2rem'
+}}>
+  {toolsData.macSoftware?.map((tool, index) => (
+    <ToolCard key={index} tool={tool} />
+  ))}
+</div>
+
 ## 🌐 在线工具
 
 <div style={{ 
